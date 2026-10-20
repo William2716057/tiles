@@ -6,7 +6,7 @@
 
 
 int main(void) {
-int tiles[2][6];
+    int tiles[2][6];
 
     const int rows = 2;
     const int cols = 6;
@@ -15,6 +15,10 @@ int tiles[2][6];
 
     const int windowWidth = cols * (tileSize + gap) + gap;
     const int windowHeight = rows * (tileSize + gap) + gap;
+
+    int playerRow = 1;
+    int playerCol = 0;
+    int playerRadius = 10;
 
     srand((unsigned int)time(NULL));
 
@@ -34,26 +38,6 @@ int tiles[2][6];
 
     while (!WindowShouldClose())
     {
-            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-                    Vector2 mouse = GetMousePosition();
-
-                    for (int row = 0; row < rows; row++) {
-                            for (int col = 0; col < cols; col++) {
-                                    int x = gap + col * (tileSize + gap);
-                                    int y = gap + row * (tileSize + gap);
-
-                                    Rectangle tile = {
-                                            (float)x, (float)y,
-                                            (float)tileSize, (float)tileSize
-                                    };
-
-                                    if (CheckCollisionPointRec(mouse, tile)) {
-                                            tiles[row][col] = 1 - tiles[row][col];
-                                    }
-                            }
-                    }
-            }
-
             BeginDrawing();
             ClearBackground(RAYWHITE);
 
@@ -66,13 +50,18 @@ int tiles[2][6];
                                             ? BLUE : LIGHTGRAY;
 
                             DrawRectangle(x, y, tileSize, tileSize, colour);
-
-
                     }
             }
 
+            int playerX = gap + playerCol * (tileSize + gap) + tileSize / 2;
+            int playerY = gap + playerRow * (tileSize + gap) + tileSize / 2;
+
+            DrawCircle(playerX, playerY, playerRadius, BLACK);
+
             EndDrawing();
     }
+
+
 
     CloseWindow();
 
