@@ -38,6 +38,34 @@ int main(void) {
 
     while (!WindowShouldClose())
     {
+
+	if (IsKeyPressed(KEY_W)) {
+	        playerRow--;
+	    }
+
+	    if (IsKeyPressed(KEY_S)) {
+	        playerRow++;
+	    }
+
+	    if (IsKeyPressed(KEY_D)) {
+	        playerCol++;
+	    }
+
+	    if (IsKeyPressed(KEY_E)) {
+	        playerRow--;
+	        playerCol++;
+	    }
+
+	    if (IsKeyPressed(KEY_F)) {
+	        playerRow++;
+	        playerCol++;
+	    }
+
+    // Keep player inside the grid
+    if (playerRow < 0) playerRow = 0;
+    if (playerRow >= rows) playerRow = rows - 1;
+    if (playerCol < 0) playerCol = 0;
+    if (playerCol >= cols) playerCol = cols - 1;
             BeginDrawing();
             ClearBackground(RAYWHITE);
 
