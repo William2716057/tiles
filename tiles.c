@@ -13,6 +13,11 @@ int main(void) {
         const int tileSize = 80;
         const int gap = 5;
 
+	const int windowWidth = cols * (tileSize + gap) + gap;
+	const int windowHeight = rows * (tileSize + gap) + gap;
+
+	InitWindow(windowWidth, windowHeight, "Bridge Cross");
+
         srand((unsigned int)time(NULL));
 
         //srand(time(NULL));
@@ -25,9 +30,9 @@ int main(void) {
                 }
 
         //graphics
-        InitWindow(cols * (tileSize + gap) + gap,
-                        rows * (tileSize + gap) + gap,
-                        "My Tile Grid");
+        //InitWindow(cols * (tileSize + gap) + gap,
+        //                rows * (tileSize + gap) + gap,
+        //                "Bridge Cross");
 
         SetTargetFPS(60);
 
@@ -46,10 +51,10 @@ int main(void) {
 
                                 DrawRectangle(x, y, tileSize, tileSize, colour);
 
-                                DrawText(
-                                        tiles[row][col] == 1 ? "1" : "0",
-                                        x + 30, y + 25, 30, BLACK
-                                );
+                                //DrawText(
+                                //        tiles[row][col] == 1 ? "1" : "0",
+                                //        x + 30, y + 25, 30, BLACK
+                                //);
                         }
                 }
 
