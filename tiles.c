@@ -18,7 +18,6 @@ int tiles[2][6];
 
     srand((unsigned int)time(NULL));
 
-    //srand(time(NULL));
 
 
     for (int col = 0; col < cols; col++) {
@@ -30,9 +29,6 @@ int tiles[2][6];
     //graphics
     InitWindow(windowWidth, windowHeight, "Bridge Cross");
 
-    //InitWindow(cols * (tileSize + gap) + gap,
-    //                rows * (tileSize + gap) + gap,
-    //                "Bridge Cross");
 
     SetTargetFPS(60);
 
@@ -71,22 +67,7 @@ int tiles[2][6];
 
                             DrawRectangle(x, y, tileSize, tileSize, colour);
 
-                            //DrawText(
-                            //        tiles[row][col] == 1 ? "1" : "0",
-                            //        x + 30, y + 25, 30, BLACK
-                            //);
 
-//                            const char *label = tiles[row][col] == 1 ? "1" : "0";
-//                            const int fontSize = 30;
- //                           const int textWidth = MeasureText(label, fontSize);
-
-//                            DrawText(
- //                                   label,
-//                                    x + (tileSize - textWidth) / 2,
- //                                   y + (tileSize - fontSize) / 2,
-  //                                  fontSize,
-   //                                 BLACK
-     //                       );
                     }
             }
 
