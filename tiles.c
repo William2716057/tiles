@@ -19,8 +19,15 @@ int main(void) {
     int playerRow = 1;
     int playerCol = 0;
     int playerRadius = 10;
-   // int gameOver = 0;
     int gameWon = 0;
+
+    int flashCount = 0;
+    float flashTimer = 0.0f;
+    int flashing = 0;
+    int flashRed = 0;
+    int resetPending = 0;
+    int failedRow = 0;
+    int failedCol = 0;
 
     srand((unsigned int)time(NULL));
 
@@ -40,7 +47,8 @@ int main(void) {
 
     while (!WindowShouldClose())
     {
-        if (!gameWon) {
+        // Player movement
+        if (!gameWon && !flashing) {
             int nextRow = playerRow;
             int nextCol = playerCol;
             int moveRequested = 0;
@@ -84,9 +92,39 @@ int main(void) {
                         }
                     }
                     else {
-                        // Game over
-                        playerRow = 1;
-                        playerCol = 0;
+                        // Flash unsafe tile red 3 times
+                        flashing = 1;
+                        flashCount = 0;
+                        flashTimer = 0.0f;
+                        flashRed = 1;
+                        resetPending = 1;
+                        failedRow = nextRow;
+                        failedCol = nextCol;
+                    }
+                }
+            }
+        }
+
+        // Update flashing animation
+        if (flashing) {
+            flashTimer += GetFrameTime();
+
+            if (flashTimer >= 0.2f) {
+                flashTimer = 0.0f;
+                flashRed = !flashRed;
+
+                if (flashRed) {
+                    flashCount++;
+
+                    if (flashCount >= 3) {
+                        flashing = 0;
+                        flashRed = 0;
+
+                        if (resetPending) {
+                            playerRow = 1;
+                            playerCol = 0;
+                            resetPending = 0;
+                        }
                     }
                 }
             }
@@ -101,7 +139,12 @@ int main(void) {
                 int y = gap + row * (tileSize + gap);
 
                 Color colour = tiles[row][col] == 1
-                                ? BLUE : LIGHTGRAY;
+                                ? LIGHTGRAY : LIGHTGRAY;
+
+                if (flashing && flashRed &&
+                    row == failedRow && col == failedCol) {
+                    colour = RED;
+                }
 
                 DrawRectangle(x, y, tileSize, tileSize, colour);
             }
@@ -111,10 +154,6 @@ int main(void) {
         int playerY = gap + playerRow * (tileSize + gap) + tileSize / 2;
 
         DrawCircle(playerX, playerY, playerRadius, BLACK);
-
- //       if (gameOver) {
-   //         DrawText("GAME OVER", 150, 60, 30, RED);
-     //   }
 
         if (gameWon) {
             DrawText("YOU WIN!", 175, 60, 30, GREEN);
