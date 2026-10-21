@@ -19,7 +19,7 @@ int main(void) {
     int playerRow = 1;
     int playerCol = 0;
     int playerRadius = 10;
-    int gameOver = 0;
+   // int gameOver = 0;
     int gameWon = 0;
 
     srand((unsigned int)time(NULL));
@@ -40,7 +40,7 @@ int main(void) {
 
     while (!WindowShouldClose())
     {
-        if (!gameOver && !gameWon) {
+        if (!gameWon) {
             int nextRow = playerRow;
             int nextCol = playerCol;
             int moveRequested = 0;
@@ -85,7 +85,8 @@ int main(void) {
                     }
                     else {
                         // Game over
-                        gameOver = 1;
+                        playerRow = 1;
+                        playerCol = 0;
                     }
                 }
             }
@@ -111,9 +112,9 @@ int main(void) {
 
         DrawCircle(playerX, playerY, playerRadius, BLACK);
 
-        if (gameOver) {
-            DrawText("GAME OVER", 150, 60, 30, RED);
-        }
+ //       if (gameOver) {
+   //         DrawText("GAME OVER", 150, 60, 30, RED);
+     //   }
 
         if (gameWon) {
             DrawText("YOU WIN!", 175, 60, 30, GREEN);
